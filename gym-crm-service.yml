@@ -1,7 +1,7 @@
 info:
   app:
-    name: "trainer-workload-service"
-    description: "Trainer's workload report service"
+    name: "gym-crm-service"
+    description: "Gym CRM API"
     version: "1.0.0"
 
 server:
