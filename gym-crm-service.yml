@@ -10,7 +10,7 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://database:5432/gym_crm
-    username: ${PSQL_USERNAME}
+    username: ${PSQL_USER}
     password: ${PSQL_PSW}
     driver-class-name: org.postgresql.Driver
 
