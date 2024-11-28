@@ -1,0 +1,54 @@
+info:
+  app:
+    name: "gym-gateway-server"
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: gym-crm-service
+          uri: lb://gym-crm-service
+          predicates:
+            - Path=/gym-crm/**
+          filters:
+            - RewritePath=/gym-crm/(?<path>.*), /$\{path}
+        - id: trainer-workload-service
+          uri: lb://trainer-workload-service
+          predicates:
+            - Path=/trainer-workload/**
+          filters:
+            - RewritePath=/trainer-workload/(?<path>.*), /$\{path}
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 2000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
+server:
+  port: 8888
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
