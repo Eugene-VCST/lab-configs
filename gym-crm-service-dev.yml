@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format-sql: true
+
+resilience4j.circuitbreaker:
+    instances:
+      trainerService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        slowCallRateThreshold: 50
+        slowCallDurationThreshold: 3000
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5000
+
+logging:
+  level:
+    lab.project.gym: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,0 +1,48 @@
+server:
+  port: 8180
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gym_crm
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        default_schema: lab_project
+    open-in-view: false
+
+  flyway:
+    schemas: lab_project
+
+logging:
+  level:
+    lab.project.gym: info
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - metrics
+          - prometheus
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8070/eureka/
+
+application:
+  security:
+    jwt:
+      ttl: 600000
