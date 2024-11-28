@@ -1,3 +1,9 @@
+info:
+  app:
+    name: "trainer-workload-service"
+    description: "Trainer's workload report service"
+    version: "1.0.0"
+
 server:
   port: 8180
 
@@ -32,6 +38,10 @@ management:
           - health
           - metrics
           - prometheus
+
+endpoints:
+  shutdown:
+    enabled: true
 
 eureka:
   instance:
