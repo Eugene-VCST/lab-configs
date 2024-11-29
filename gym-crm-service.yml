@@ -13,6 +13,7 @@ spring:
     username: ${DB_USR}
     password: ${DB_PSW}
     driver-class-name: org.postgresql.Driver
+    
   redis:
     host: redis
     port: 6379
