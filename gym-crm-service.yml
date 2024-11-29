@@ -59,5 +59,4 @@ eureka:
 application:
   security:
     jwt:
-      secret:
       ttl: 600000
