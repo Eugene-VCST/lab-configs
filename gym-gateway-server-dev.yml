@@ -5,6 +5,9 @@ info:
 spring:
   cloud:
     gateway:
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 10s
       routes:
         - id: gym-crm-service
           uri: lb://gym-crm-service
