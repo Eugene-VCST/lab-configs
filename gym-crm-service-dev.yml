@@ -15,7 +15,3 @@ resilience4j.circuitbreaker:
         slowCallDurationThreshold: 3000
         failureRateThreshold: 50
         waitDurationInOpenState: 5000
-
-logging:
-  level:
-    lab.project.gym: DEBUG

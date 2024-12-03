@@ -30,7 +30,11 @@ spring:
 
 logging:
   level:
-    lab.project.gym: info
+    lab:
+      project:
+        gym: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
 management:
   endpoints:
