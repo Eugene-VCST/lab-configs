@@ -19,9 +19,3 @@ resilience4j.circuitbreaker:
 logging:
   level:
     lab.project.gym: DEBUG
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
