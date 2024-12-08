@@ -8,6 +8,8 @@ server:
   port: 8180
 
 spring:
+  application:
+    name: gym-crm-service
   datasource:
     url: jdbc:postgresql://database:5432/gym_crm
     username: ${DB_USR}
@@ -29,19 +31,19 @@ spring:
     schemas: lab_project
 
   cloud:
+    function:
+      definition: sendWorkloadData;evictCache
     stream:
-      function:
-        definition: sendWorkloadData; evictCache
-        bindings:
-          sendWorkloadData-out-0:
-            destination: send-workload
-          evictCache-in-0:
-            destination: workload-processed
-            group: ${spring.application.name}
-        kafka:
-          binder:
-            brokers:
-              - kafka:9092
+      bindings:
+        sendWorkloadData-out-0:
+          destination: send-workload
+        evictCache-in-0:
+          destination: workload-processed
+          group: ${spring.application.name}
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
 
 logging:
   level:
