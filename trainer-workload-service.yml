@@ -24,9 +24,9 @@ spring:
       function:
         definition: processWorkload
         bindings:
-          sendWorkloadData-in-0:
+          processWorkload-in-0:
             destination: send-workload
-          evictCache-out-0:
+          processWorkload-out-0:
             destination: workload-processed
             group: ${spring.application.name}
         kafka:
