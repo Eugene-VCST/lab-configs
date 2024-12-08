@@ -28,6 +28,21 @@ spring:
   flyway:
     schemas: lab_project
 
+  cloud:
+    stream:
+      function:
+        definition: sendWorkloadData; evictCache
+        bindings:
+          sendWorkloadData-out-0:
+            destination: send-workload
+          evictCache-in-0:
+            destination: workload-processed
+            group: ${spring.application.name}
+        kafka:
+          binder:
+            brokers:
+              - kafka:9092
+
 logging:
   level:
     lab:

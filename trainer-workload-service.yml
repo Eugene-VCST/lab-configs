@@ -19,6 +19,21 @@ spring:
     console:
       enabled: true
 
+  cloud:
+    stream:
+      function:
+        definition: processWorkload
+        bindings:
+          sendWorkloadData-in-0:
+            destination: send-workload
+          evictCache-out-0:
+            destination: workload-processed
+            group: ${spring.application.name}
+        kafka:
+          binder:
+            brokers:
+              - kafka:9092
+
 logging:
   level:
     lab:
