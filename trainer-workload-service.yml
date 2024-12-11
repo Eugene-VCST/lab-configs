@@ -12,7 +12,7 @@ spring:
     name: trainer-workload-service
   data:
     mongodb:
-      uri: mongodb://app_user:password@localhost:27017/workload_db
+      uri: mongodb://app_user:password@mongodb:27017/workload_db
       database: workload_db
       authentication-database: admin
 
