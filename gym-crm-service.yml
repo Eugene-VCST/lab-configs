@@ -37,6 +37,9 @@ spring:
       bindings:
         sendWorkloadData-out-0:
           destination: send-workload
+          producer:
+            configuration:
+              acks: all
         evictCache-in-0:
           destination: workload-processed
           group: ${spring.application.name}

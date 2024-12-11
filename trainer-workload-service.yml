@@ -10,14 +10,11 @@ server:
 spring:
   application:
     name: trainer-workload-service
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
+  data:
+    mongodb:
+      uri: mongodb://app_user:password@localhost:27017/workload_db
+      database: workload_db
+      authentication-database: admin
 
   cloud:
     function:
@@ -27,9 +24,26 @@ spring:
         processWorkload-in-0:
           destination: send-workload
           group: ${spring.application.name}
+          consumer:
+            maxAttempts: 4
+            backOffInitialInterval: 2000
+            retryableExceptions:
+              java.lang.UnsupportedOperationException: true
+              java.lang.IllegalArgumentException: false
+        processDlqMessage-in-0:
+          destination: workload-dlq
+          group: dlq-handler-grp
         processWorkload-out-0:
           destination: workload-processed
+          producer:
+            configuration:
+              acks: all
       kafka:
+        bindings:
+          processWorkload-in-0:
+            consumer:
+              enableDlq: true
+              dlqName: workload-dlq
         binder:
           brokers:
             - kafka:9092
