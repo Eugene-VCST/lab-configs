@@ -12,8 +12,8 @@ spring:
     name: gym-crm-service
   datasource:
     url: jdbc:postgresql://localhost:5432/gym_crm
-    username: ${DB_USR}
-    password: ${DB_PSW}
+    username: ${db_usr}
+    password: ${db_psw}
     driver-class-name: org.postgresql.Driver
   
   data:  
