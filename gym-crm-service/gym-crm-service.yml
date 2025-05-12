@@ -1,0 +1,98 @@
+info:
+  app:
+    name: "gym-crm-service"
+    description: "Gym CRM API"
+    version: "1.0.0"
+
+server:
+  port: 8180
+
+spring:
+  application:
+    name: gym-crm-service
+  datasource:
+    url: jdbc:postgresql://database:5432/gym_crm
+    username: ${DB_USR}
+    password: ${DB_PSW}
+    driver-class-name: org.postgresql.Driver
+  
+  data:  
+    redis:
+      host: redis
+      port: 6379
+
+  jpa:
+    properties:
+      hibernate:
+        default_schema: lab_project
+    open-in-view: false
+
+  flyway:
+    schemas: lab_project
+
+  cloud:
+    function:
+      definition: evictCache
+    stream:
+      bindings:
+        sendWorkloadData-out-0:
+          destination: send-workload
+          producer:
+            configuration:
+              acks: all
+        evictCache-in-0:
+          destination: workload-processed
+          group: ${spring.application.name}
+      kafka:
+        binder:
+          brokers:
+            - kafka:9092
+
+logging:
+  level:
+    lab:
+      project:
+        gym: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+endpoints:
+  shutdown:
+    enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8070/eureka/
+
+application:
+  security:
+    jwt:
+      ttl: 600000
