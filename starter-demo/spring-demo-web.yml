@@ -3,3 +3,8 @@ management:
     web:
       exposure:
         include: "*"
+
+parsec:
+  service-name: ${spring.application.name}
+  logging:
+    enabled: true
