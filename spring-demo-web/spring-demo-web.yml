@@ -7,4 +7,4 @@ management:
 parsec:
   service-name: ${spring.application.name}
   logging:
-    enabled: true
+    enabled: false
